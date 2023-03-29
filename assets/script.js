@@ -1,4 +1,4 @@
-const apiKey = 'ee78e5a70619f5fef4f7f675d148db4be625f243'; // Replace with your Spoonacular API key
+const apiKey = 'ee78e5a70619f5fef4f7f675d148db4be625f243'; 
 
 // Function to search for recipes using Spoonacular API
 async function searchRecipes(query) {
