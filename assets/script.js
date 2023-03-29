@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const spoonacularApiKey = '8890df0c7f4342d786bbf12dd13f8cdb'; // Spoonacular API key
-  const youtubeApiKey = 'AIzaSyBMAujdF-hgQ4Vgax5pFHQgELyycP3tmW4'; // YouTube API key
+  const youtubeApiKey = 'AIzaSyCxbJgWs74BBSzF8lNPZNQwCOw--k1rarY'; // YouTube API key
 
   // Function to search for recipes using Spoonacular API
   async function searchRecipes(query) {
