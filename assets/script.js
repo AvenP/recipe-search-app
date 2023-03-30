@@ -33,6 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Function to search for YouTube videos
   async function searchVideos(query) {
+    query = query + " food "+"recipe";
+
     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${query}&key=${youtubeApiKey}`;
     const response = await fetch(url);
     const data = await response.json();
