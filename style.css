@@ -1,0 +1,111 @@
+/* Style for the welcome module */
+#welcome-module {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+input[type="text"] {
+  font-size: 1.2rem;
+  padding: 10px;
+  width: 70%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button[type="button"] {
+  font-size: 1.2rem;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #008CBA;
+  color: #fff;
+  cursor: pointer;
+}
+
+button[type="button"]:hover {
+  background-color: #005f79;
+}
+
+/* Style for the results container */
+#results-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.recipe-card {
+  width: calc(33.33% - 20px);
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.recipe-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.recipe-card img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.video-card {
+  width: 100%;
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.video-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.video-card img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+/* Media query for smaller screens */
+@media only screen and (max-width: 768px) {
+  #results-container {
+    max-width: 100%;
+    margin-left: 0;
+  }
+
+  footer p {
+    text-align: center;
+  }
+}
+
+/* Media query for larger screens */
+@media only screen and (min-width: 769px) {
+  #results-container {
+    max-width: 1000px;
+    margin-left: auto;
+  }
+
+  footer p {
+    text-align: left;
+  }
+}
