@@ -27,7 +27,7 @@ button[type="button"] {
   padding: 10px;
   border-radius: 5px;
   border: none;
-  background-color: #008CBA;
+  background-color: #008cba;
   color: #fff;
   cursor: pointer;
 }
@@ -44,6 +44,10 @@ button[type="button"]:hover {
   max-width: 1000px;
   margin: 0 auto;
   margin-top: 50px;
+}
+
+#recipe-modal {
+  display: none;
 }
 
 .recipe-card {
