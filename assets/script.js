@@ -1,11 +1,60 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const spoonacularApiKey = "8890df0c7f4342d786bbf12dd13f8cdb"; // Spoonacular API key
-  const youtubeApiKey = "AIzaSyCxbJgWs74BBSzF8lNPZNQwCOw--k1rarY"; // YouTube API key
+  const spoonacularApiKey = "3508c499e2844bffb6e689336e37581e"; // Spoonacular API key
+  const youtubeApiKey = "AIzaSyCwtyxUDnn7btJ_P8uFBH9yCw1hd731Ya4"; // YouTube API key
+
+  // Function to search for YouTube videos
+  async function searchVideos(query) {
+    const youtubeURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&recipe&maxResults=5&q=${query}&key=${youtubeApiKey}`;
+    const response = await fetch(youtubeURL);
+    const data = await response.json();
+    return data.items;
+  }
+
+  // Function to display video results
+  function displayVideos(videos) {
+    const resultsContainer = document.getElementById("results-container");
+    resultsContainer.innerHTML = "";
+
+    videos.forEach((video) => {
+      const videoCard = document.createElement("div");
+      videoCard.classList.add("video-card");
+
+      const title = document.createElement("h3");
+      title.innerText = video.snippet.title;
+
+      const thumbnail = document.createElement("img");
+      thumbnail.src = video.snippet.thumbnails.medium.url;
+
+      const videoLink = document.createElement("a");
+      videoLink.href = `https://www.youtube.com/watch?v=${video.id.videoId}`;
+      videoLink.target = "_blank";
+      videoLink.innerText = "Watch on YouTube";
+
+      videoCard.appendChild(title);
+      videoCard.appendChild(thumbnail);
+      videoCard.appendChild(videoLink);
+      resultsContainer.appendChild(videoCard);
+    });
+  }
+
+  // Event listener for search button
+  const searchButton = document.getElementById("search-button");
+  searchButton.addEventListener("click", async () => {
+    const searchInput = document.getElementById("search-input");
+    const query = searchInput.value;
+
+    if (query) {
+      const recipes = await searchRecipes(query);
+      const videos = await searchVideos(query);
+      displaySearchResults(recipes);
+      displayVideos(videos);
+    }
+  });
 
   // Function to search for recipes using Spoonacular API
   async function searchRecipes(query) {
-    const url = `https://api.spoonacular.com/recipes/search?apiKey=${spoonacularApiKey}&query=${query}`;
-    const response = await fetch(url);
+    const spoonURL = `https://api.spoonacular.com/recipes/search?apiKey=${spoonacularApiKey}&query=${query}`;
+    const response = await fetch(spoonURL);
     const data = await response.json();
     return data.results;
   }
@@ -54,54 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "click",
       () => (document.querySelector("#recipe-modal").style.display = "none")
     );
-  // // Function to search for YouTube videos
-  // async function searchVideos(query) {
-  //   const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&recipe&maxResults=5&q=${query}&key=${youtubeApiKey}`;
-  //   const response = await fetch(url);
-  //   const data = await response.json();
-  //   return data.items;
-  // }
-
-  // // Function to display video results
-  // function displayVideos(videos) {
-  //   const resultsContainer = document.getElementById("results-container");
-  //   resultsContainer.innerHTML = "";
-
-  //   videos.forEach((video) => {
-  //     const videoCard = document.createElement("div");
-  //     videoCard.classList.add("video-card");
-
-  //     const title = document.createElement("h3");
-  //     title.innerText = video.snippet.title;
-
-  //     const thumbnail = document.createElement("img");
-  //     thumbnail.src = video.snippet.thumbnails.medium.url;
-
-  //     const videoLink = document.createElement("a");
-  //     videoLink.href = `https://www.youtube.com/watch?v=${video.id.videoId}`;
-  //     videoLink.target = "_blank";
-  //     videoLink.innerText = "Watch on YouTube";
-
-  //     videoCard.appendChild(title);
-  //     videoCard.appendChild(thumbnail);
-  //     videoCard.appendChild(videoLink);
-  //     resultsContainer.appendChild(videoCard);
-  //   });
-  // }
-
-  // Event listener for search button
-  const searchButton = document.getElementById("search-button");
-  searchButton.addEventListener("click", async () => {
-    const searchInput = document.getElementById("search-input");
-    const query = searchInput.value;
-
-    if (query) {
-      const recipes = await searchRecipes(query);
-      // const videos = await searchVideos(query);
-      displaySearchResults(recipes);
-      // displayVideos(videos);
-    }
-  });
 });
 
 /* APIs
