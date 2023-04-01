@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
   const spoonacularApiKey = '8890df0c7f4342d786bbf12dd13f8cdb'; // Spoonacular API key
   const youtubeApiKey = 'AIzaSyCxbJgWs74BBSzF8lNPZNQwCOw--k1rarY'; // YouTube API key
@@ -8,10 +7,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const url = `https://api.spoonacular.com/recipes/search?apiKey=${spoonacularApiKey}&query=${query}`;
     const response = await fetch(url);
     const data = await response.json();
-    return data.results;
+  
+    const recipes = data.results;
+  
+    // Get nutrition information for each recipe
+    const promises = recipes.map(recipe => {
+      const nutritionUrl = `https://api.spoonacular.com/recipes/${recipe.id}/nutritionWidget.json?apiKey=${spoonacularApiKey}`;
+      return fetch(nutritionUrl)
+        .then(response => response.json())
+        .then(nutritionData => {
+          recipe.nutrition = nutritionData;
+          return recipe;
+        });
+    });
+  
+    // Wait for all the nutrition requests to complete before returning the recipes
+    await Promise.all(promises);
+  
+    return recipes;
   }
+  
 
-  // Function to display recipe results
   function displayRecipes(recipes) {
     const resultsContainer = document.getElementById('results-container');
     resultsContainer.innerHTML = '';
@@ -35,13 +51,25 @@ document.addEventListener('DOMContentLoaded', () => {
         description.innerText = 'No recipe available.';
       }
   
+      const nutrition = document.createElement('div');
+      nutrition.classList.add('nutrition-info');
+      nutrition.innerHTML = `
+        <h4>Nutrition Information</h4>
+        <ul>
+          <li>Calories: ${recipe.nutrition.calories}</li>
+          <li>Protein: ${recipe.nutrition.protein}</li>
+          <li>Carbohydrates: ${recipe.nutrition.carbs}</li>
+          <li>Fat: ${recipe.nutrition.fat}</li>
+        </ul>
+      `;
+  
       recipeCard.appendChild(title);
       recipeCard.appendChild(image);
       recipeCard.appendChild(description);
+      recipeCard.appendChild(nutrition);
       resultsContainer.appendChild(recipeCard);
     });
   }
-  
   
 
   // Function to search for YouTube videos
