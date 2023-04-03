@@ -1,7 +1,45 @@
-wren
+
 document.addEventListener('DOMContentLoaded', () => {
   const spoonacularApiKey = '8890df0c7f4342d786bbf12dd13f8cdb'; // Spoonacular API key
   const youtubeApiKey = 'AIzaSyCxbJgWs74BBSzF8lNPZNQwCOw--k1rarY'; // YouTube API key
+
+  //Autocomplete
+  $(document).ready(function () {
+  
+    $("#searchInput").keyup(function (e) {
+        if (e.which == 40) {
+            $("#autoCompleteSelect").val($("#autoCompleteSelect option:first").val());
+            $("#autoCompleteSelect").focus();
+            $(this).val($("#autoCompleteSelect :selected").text());
+        }
+        else {
+            if ($(this).val().length > 2)
+                FillAutoComplete($(this).val());
+            else
+                $("#autoCompleteDiv").hide();
+        }
+    });
+
+});
+//key up event 
+  
+function FillAutoComplete(value) {
+  $.ajax({
+      type: "POST",
+      url: "Autocomplete/FillAutoComplete",
+      contentType: "application/json; charset=utf-8",
+      data: '{"value":"' + value + '"}',
+      dataType: "html",
+      success: function (result, status, xhr) {
+          $("#autoCompleteDiv").html(value);
+          $("#autoCompleteDiv").show();
+      },
+      error: function (xhr, status, error) {
+          alert(xhr + " " + status + " " + error);
+      }
+  });
+  return false;
+}
 
   // Function to search for recipes using Spoonacular API
   async function searchRecipes(query) {
@@ -34,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Function to search for YouTube videos
   async function searchVideos(query) {
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${query}&key=${youtubeApiKey}`;
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${query}+"recipe"&key=${youtubeApiKey}`;
     const response = await fetch(url);
     const data = await response.json();
     return data.items;
@@ -82,7 +120,26 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+//key up event 
+  
+function FillAutoComplete(value) {
+    $.ajax({
+        type: "POST",
+        url: "Autocomplete/FillAutoComplete",
+        contentType: "application/json; charset=utf-8",
+        data: '{"value":"' + value + '"}',
+        dataType: "html",
+        success: function (result, status, xhr) {
+            $("#autoCompleteDiv").html(value);
+            $("#autoCompleteDiv").show();
+        },
+        error: function (xhr, status, error) {
+            alert(xhr + " " + status + " " + error);
+        }
+    });
+    return false;
+}
 /* APIs
 Rojan's API key: FJVk2YSVm3Vi9Pg1Tv99XarbQ2Vlqv1k
 (500 calls a month for Youtube and 3,000 for spoonacular)*/
- main
+ /*main*/

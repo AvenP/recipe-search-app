@@ -4,6 +4,35 @@
   margin: 0 auto;
 }
 
+
+    #viewContent #searchInput, #viewContent #autoCompleteSelect {
+        width: 430px;
+    }
+  
+    #viewContent #searchInput {
+        padding: 5px 0;
+    }
+  
+    #viewContent #autoCompleteSelect option:hover {
+        background-color: #d8fff7;
+        cursor: pointer;
+    }
+  
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+  
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+    }
+  
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    }
+
+
 h1 {
   font-size: 2.5rem;
   margin-bottom: 20px;
