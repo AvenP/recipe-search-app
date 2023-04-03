@@ -37,66 +37,133 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Function to search for recipes using Spoonacular API
+  async function searchRecipes(query) {
+    const url = `https://api.spoonacular.com/recipes/search?apiKey=${spoonacularApiKey}&query=${query}`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const recipes = data.results;
+
+    // Get nutrition information for each recipe
+    const promises = recipes.map(recipe => {
+      const nutritionUrl = `https://api.spoonacular.com/recipes/${recipe.id}/nutritionWidget.json?apiKey=${spoonacularApiKey}`;
+      return fetch(nutritionUrl)
+        .then(response => response.json())
+        .then(nutritionData => {
+          recipe.nutrition = nutritionData;
+          return recipe;
+        });
+    });
+
+    // Wait for all the nutrition requests to complete before returning the recipes
+    await Promise.all(promises);
+
+    return recipes;
+  }
+
+  async function getRecipeDetails(recipeId, nutritionValue) {
+    const url = `https://api.spoonacular.com/recipes/${recipeId}/nutritionWidget.json?apiKey=${spoonacularApiKey}`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const nutrition = data;
+    const nutritionArray = [];
+
+    switch (nutritionValue) {
+      case 'calories':
+        nutritionArray.push(nutrition.calories);
+        break;
+      case 'carbs':
+        nutritionArray.push(nutrition.carbs);
+        break;
+      case 'fat':
+        nutritionArray.push(nutrition.fat);
+        break;
+      case 'protein':
+        nutritionArray.push(nutrition.protein);
+        break;
+      default:
+        nutritionArray.push(nutrition);
+    }
+
+    const summaryUrl = `https://api.spoonacular.com/recipes/${recipeId}/summary?apiKey=${spoonacularApiKey}`;
+    const summaryResponse = await fetch(summaryUrl);
+    const summaryData = await summaryResponse.json();
+    const summary = summaryData.summary;
+
+    return { nutritionArray, summary };
+  }
+  async function displayRecipesWithDetails(recipes) {
+    const resultsContainer = document.getElementById('results-container');
+    resultsContainer.innerHTML = '';
+  
+    for (const recipe of recipes) {
+      const { nutritionArray, summary } = await getRecipeDetails(recipe.id, 'calories');
+  
+      const recipeCard = document.createElement('div');
+      recipeCard.classList.add('recipe-card');
+  
+      const title = document.createElement('h3');
+      title.innerText = recipe.title;
+  
+      const image = document.createElement('img');
+      image.src = 'https://spoonacular.com/recipeImages/' + recipe.id + '-636x393.jpg';
+      image.alt = recipe.title;
+  
+      const nutritionTable = document.createElement('table');
+      const nutritionRow = document.createElement('tr');
+      const nutritionHeader = document.createElement('th');
+      nutritionHeader.innerText = 'Nutrition';
+      const nutritionValue = document.createElement('td');
+      nutritionValue.innerText = nutritionArray[0];
+      nutritionRow.appendChild(nutritionHeader);
+      nutritionRow.appendChild(nutritionValue);
+      nutritionTable.appendChild(nutritionRow);
+  
+      // Replace HTML tags in summary text with an empty string
+      const summaryText = summary.replace(/<[^>]*>/g, '');
+  
+      const description = document.createElement('p');
+      description.innerText = summaryText;
+  
+      // Add a link to the recipe on Spoonacular
+      const link = document.createElement('a');
+      link.href = recipe.sourceUrl;
+      link.innerText = 'View recipe on Spoonacular';
+  
+      recipeCard.appendChild(title);
+      recipeCard.appendChild(image);
+      recipeCard.appendChild(nutritionTable);
+      recipeCard.appendChild(description);
+      recipeCard.appendChild(link);
+      resultsContainer.appendChild(recipeCard);
+    }
+  }
+    // Event listener for videos button
+const videosButton = document.getElementById('videos-button');
+videosButton.addEventListener('click', async () => {
+  const searchInput = document.getElementById('search-input');
+  const query = searchInput.value;
+
+  if (query) {
+    const videos = await searchVideos(query);
+    displayVideos(videos);
+  }
+});
   // Event listener for search button
-  const searchButton = document.getElementById("search-button");
-  searchButton.addEventListener("click", async () => {
-    const searchInput = document.getElementById("search-input");
+  const searchButton = document.getElementById('search-button');
+  searchButton.addEventListener('click', async () => {
+    const searchInput = document.getElementById('search-input');
     const query = searchInput.value;
 
     if (query) {
       const recipes = await searchRecipes(query);
-      const videos = await searchVideos(query);
-      displaySearchResults(recipes);
-      displayVideos(videos);
+      displayRecipesWithDetails(recipes);
     }
   });
 
-  // Function to search for recipes using Spoonacular API
-  async function searchRecipes(query) {
-    const spoonURL = `https://api.spoonacular.com/recipes/search?apiKey=${spoonacularApiKey}&query=${query}`;
-    const response = await fetch(spoonURL);
-    const data = await response.json();
-    return data.results;
-  }
-
-  // Function to display recipe results
-  function displaySearchResults(recipes) {
-    const resultsContainer = document.getElementById("results-container");
-    resultsContainer.innerHTML = "";
-
-    recipes.forEach((recipe) => {
-      console.log(recipe);
-      sourceURL = recipe.sourceUrl;
-      const recipeExtractURL = `https://api.spoonacular.com/recipes/extract?url=${sourceURL}&apiKey=${spoonacularApiKey}`;
-      const recipeCard = document.createElement("button");
-      recipeCard.classList.add("recipe-card");
-
-      const title = document.createElement("h3");
-      title.innerText = recipe.title;
-
-      const image = document.createElement("img");
-      image.src = `https://spoonacular.com/recipeImages/${recipe.image}`;
-
-      recipeCard.appendChild(title);
-      recipeCard.appendChild(image);
-      recipeCard.addEventListener("click", () =>
-        displayRecipe(recipeExtractURL)
-      );
-      resultsContainer.appendChild(recipeCard);
-    });
-  }
-
-  function displayRecipe(recipeExtractURL) {
-    fetch(recipeExtractURL)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        document.querySelector("#recipe-modal").style.display = "block";
-        document.querySelector("#modal-title").innerText = data.title;
-        document.querySelector("#modal-recipe-instructions").innerHTML =
-          data.instructions;
-      });
-  }
+  
   document
     .querySelector("#close-modal")
     .addEventListener(
