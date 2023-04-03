@@ -1,4 +1,4 @@
-wren
+
 document.addEventListener('DOMContentLoaded', () => {
   const spoonacularApiKey = '8890df0c7f4342d786bbf12dd13f8cdb'; // Spoonacular API key
   const youtubeApiKey = 'AIzaSyCxbJgWs74BBSzF8lNPZNQwCOw--k1rarY'; // YouTube API key
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Function to display recipe results
-  function displayRecipes(recipes) {
+  async function displayRecipes(recipes) {
     const resultsContainer = document.getElementById('results-container');
     resultsContainer.innerHTML = '';
   
