@@ -3,18 +3,19 @@
 const autosearch = [
     //by type
     "Pizza","Pasta","Pumkin Pie","Chili","Soup","Casserole","Desserts","Cake","Pie","Fried Rice","Rice","Chicken Fried Steak","Cookies","Meatloaf",
-    "Mac and Cheese",
+    "Mac and Cheese","Burgers","Appetizers","Sandwhich",
     //by fruit/veg
     "Apples","Bananas","Coconut","Celery","Dragonfruit","Figs","Berries","Strawberry","Mushroom","Onions","Carrots","Broccoli","Peas","Potatoes",
     "Tomato","Corn","Spinach","Pears","Peaches","Plums","Oranges","Lime","Lemmon","Cilantro","Parsely","Basil","Grapes","Shallots","Jack Fruit",
     "Raddish","Cucumber","Zuccini","Jalepeno","Bell Pepper","Raspberry","Avocado","Green Beans","Pinto Beans","Black Beans","Black-eyed Peas",
     "Squash","Squash, Butternut","Squash, Acorn",
     //by protein
-    "Beef","Chicken","Turkey","Eggs","Pork","Tofu","Sausage","Fish","Shrimp","Lobster","Crab","Crawfish","Brisket","Vegetarian",
+    "Beef","Chicken","Turkey","Eggs","Pork","Tofu","Sausage","Fish","Shrimp","Lobster","Crab","Crawfish","Brisket","Vegetarian","Pescatarian",
+    "Scallops","Clams","Uni","Veal","Octopus","Calamari","Squid","Artificial Krab",
     //by diet restriction
-    "Gluten-Free","Gluten-Friendly","Keto","Low-Sodium","Low Fat",
+    "Gluten-Free","Gluten-Friendly","Keto","Low-Sodium","Low Fat","Lactose-Free", 
     //by 'other'
-    "Chocolate","White Chocolate","Peanuts","Walnuts","Pecans","Bread","Dough","Coffee",
+    "Chocolate","White Chocolate","Peanuts","Walnuts","Pecans","Bread","Dough","Coffee","Milk","Queso"
     ];
 //Alphbetize Array
 autosearch.sort();
