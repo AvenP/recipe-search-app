@@ -2,12 +2,22 @@
 //Please add to
 const autosearch = [
     //by type
-    "Pizza","Pasta","Pumkin Pie","Chili","Soup","Casserole","Desserts","Cake","Pie","Fried Rice","Rice",
+    "Pizza","Pasta","Pumkin Pie","Chili","Soup","Casserole","Desserts","Cake","Pie","Fried Rice","Rice","Chicken Fried Steak","Cookies","Meatloaf",
+    "Mac and Cheese",
     //by fruit/veg
     "Apples","Bananas","Coconut","Celery","Dragonfruit","Figs","Berries","Strawberry","Mushroom","Onions","Carrots","Broccoli","Peas","Potatoes",
+    "Tomato","Corn","Spinach","Pears","Peaches","Plums","Oranges","Lime","Lemmon","Cilantro","Parsely","Basil","Grapes","Shallots","Jack Fruit",
+    "Raddish","Cucumber","Zuccini","Jalepeno","Bell Pepper","Raspberry","Avocado","Green Beans","Pinto Beans","Black Beans","Black-eyed Peas",
+    "Squash","Squash, Butternut","Squash, Acorn",
     //by protein
-    "Beef","Chicken","Turkey","Eggs","Pork","Tofu","Sausage","Fish","Shrimp","Lobster","Crab","Crawfish"
+    "Beef","Chicken","Turkey","Eggs","Pork","Tofu","Sausage","Fish","Shrimp","Lobster","Crab","Crawfish","Brisket","Vegetarian",
+    //by diet restriction
+    "Gluten-Free","Gluten-Friendly","Keto","Low-Sodium","Low Fat",
+    //by 'other'
+    "Chocolate","White Chocolate","Peanuts","Walnuts","Pecans","Bread","Dough",
     ];
+  //Alphbetize Array
+autosearch.sort();
 
 //Autocomplete
 function autocomplete(inp, autosearch) {
