@@ -14,9 +14,9 @@ const autosearch = [
     //by diet restriction
     "Gluten-Free","Gluten-Friendly","Keto","Low-Sodium","Low Fat",
     //by 'other'
-    "Chocolate","White Chocolate","Peanuts","Walnuts","Pecans","Bread","Dough",
+    "Chocolate","White Chocolate","Peanuts","Walnuts","Pecans","Bread","Dough","Coffee",
     ];
-  //Alphbetize Array
+//Alphbetize Array
 autosearch.sort();
 
 //Autocomplete
@@ -227,4 +227,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* APIs
 Rojan's spoonacular API key: 3508c499e2844bffb6e689336e37581e
+Matt's spoonacular API key:  e2ebf5f91be9ed84ff7b3315f93cff5d
+Matt's YouTube API key:  AIzaSyCWp4wXg1lqxDk9sfVm91BMkBfeDTnfaIU
 */

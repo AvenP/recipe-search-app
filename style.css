@@ -15,7 +15,7 @@ input {
   font-size: 16px;
 }
 input[type=text] {
-  background-color: #f1f1f1;
+  background-color: white;
   width: 100%;
 }
 input[type=submit] {
@@ -52,8 +52,9 @@ input[type=submit] {
 
 /* Style for the welcome module */
 #welcome-module {
-  max-width: 550px;
+  max-width: 700px;
   margin: 0 auto;
+  justify-content: center;
 }
 
 h1 {
