@@ -1,5 +1,7 @@
 /*Style for searchbar*/
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 body {
   font: 16px Arial;
 }
@@ -14,11 +16,11 @@ input {
   padding: 10px;
   font-size: 16px;
 }
-input[type=text] {
+input[type="text"] {
   background-color: white;
   width: 100%;
 }
-input[type=submit] {
+input[type="submit"] {
   background-color: DodgerBlue;
   color: #fff;
 }
@@ -52,9 +54,8 @@ input[type=submit] {
 
 /* Style for the welcome module */
 #welcome-module {
-  max-width: 700px;
+  max-width: 600px;
   margin: 0 auto;
-  justify-content: center;
 }
 
 h1 {
@@ -89,18 +90,30 @@ button[type="button"]:hover {
   background-color: #005f79;
 }
 
-/* Style for the results container */
-#results-container {
+main {
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow: auto;
+}
+
+/* Style for the results container */
+#results-container,
+#video-results-container {
+  display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  max-width: 1000px;
+  width: 40vw;
   margin: 0 auto;
   margin-top: 50px;
 }
 
 #recipe-modal {
   display: none;
+}
+.mt-2 {
+  height: 60vh;
 }
 
 .recipe-card {
