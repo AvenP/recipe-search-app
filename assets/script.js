@@ -3,21 +3,26 @@
 const autosearch = [
     //by type
     "Pizza","Pasta","Pumkin Pie","Chili","Soup","Casserole","Desserts","Cake","Pie","Fried Rice","Rice","Chicken Fried Steak","Cookies","Meatloaf",
-    "Mac and Cheese","Burgers","Appetizers","Sandwhich",
+    "Mac and Cheese","Burgers","Appetizers","Sandwhich","Crab Cakes","Deviled Eggs","Stuffed Jalepeno","Stuffed Peppers","Stuffed Pasta","Cajun",
+    "Ballpark Favorites","Tacos","Fajitas","Salad","Tater-tots","Poutine","Chicken Wings","Cheesesteak","Crockpot",
     //by fruit/veg
     "Apples","Bananas","Coconut","Celery","Dragonfruit","Figs","Berries","Strawberry","Mushroom","Onions","Carrots","Broccoli","Peas","Potatoes",
     "Tomato","Corn","Spinach","Pears","Peaches","Plums","Oranges","Lime","Lemmon","Cilantro","Parsely","Basil","Grapes","Shallots","Jack Fruit",
     "Raddish","Cucumber","Zuccini","Jalepeno","Bell Pepper","Raspberry","Avocado","Green Beans","Pinto Beans","Black Beans","Black-eyed Peas",
-    "Squash","Squash, Butternut","Squash, Acorn",
+    "Squash","Squash, Butternut","Squash, Acorn","Okra","Collard Greens","Red Potatoes",
     //by protein
     "Beef","Chicken","Turkey","Eggs","Pork","Tofu","Sausage","Fish","Shrimp","Lobster","Crab","Crawfish","Brisket","Vegetarian","Pescatarian",
-    "Scallops","Clams","Uni","Veal","Octopus","Calamari","Squid","Artificial Krab",
+    "Scallops","Clams","Uni","Veal","Octopus","Calamari","Squid","Artificial Krab","Elk","Buffalo",
     //by diet restriction
     "Gluten-Free","Gluten-Friendly","Keto","Low-Sodium","Low Fat","Lactose-Free", 
     //by 'other'
-    "Chocolate","White Chocolate","Peanuts","Walnuts","Pecans","Bread","Dough","Coffee","Milk","Queso"
+    "Chocolate","White Chocolate","Peanuts","Walnuts","Pecans","Bread","Dough","Coffee","Milk","Queso","Cheese, Swiss","Cheese, Brie","Cheese, Cheddar",
+    "Cheese, American","Cheese, Gouda","Cheese, Pepperjack","Fondue",
+    //by cuisine
+    "Indian","Chinese","Thia","Japanese","Southwest American","Canadian","Mexican","Tex-Mex","British","French","Spanish","Eastern European",
+    "American","South American","Swiss",
     ];
-//Alphbetize Array
+//Alphabetize Array
 autosearch.sort();
 
 //Autocomplete
