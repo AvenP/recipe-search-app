@@ -1,4 +1,10 @@
 {
+
+"scripts": {
+  "build-css": "tailwindcss build src/twstyles.css -o public/twstyles.css"
+},
+
+
   "devDependencies": {
     "tailwindcss": "^3.3.1"
   }

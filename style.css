@@ -1,9 +1,11 @@
 /*Style for searchbar*/
 * {
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
 }
 body {
-  font: 16px Arial;
+  background: rgb(239, 237, 237);
 }
 .autocomplete {
   /*the container must be positioned relative:*/
@@ -54,7 +56,12 @@ input[type="submit"] {
 
 /* Style for the welcome module */
 #welcome-module {
-  max-width: 600px;
+  background: rgb(150,255,192);
+  background: linear-gradient(153deg, rgba(150,255,192,1) 26%, rgba(0,186,235,1) 100%);
+  padding: 25px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 950px;
   margin: 0 auto;
 }
 
@@ -77,17 +84,19 @@ input[type="text"] {
 }
 
 button[type="button"] {
-  font-size: 1.2rem;
-  padding: 10px;
+  font-size: 25px;
+  padding: 15px;
   border-radius: 5px;
+  margin-top: 5px;
   border: none;
-  background-color: #008cba;
+  background-color: #c2410c;
   color: #fff;
   cursor: pointer;
 }
 
 button[type="button"]:hover {
-  background-color: #005f79;
+  background-color: #ffffff;
+  color: #c2410c;
 }
 
 main {
@@ -103,11 +112,14 @@ main {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: space-between;
   width: 40vw;
+  height: 100vh;
   margin: 0 auto;
   margin-top: 50px;
 }
+
 
 #recipe-modal {
   display: none;
@@ -117,16 +129,32 @@ main {
 }
 
 .recipe-card {
-  width: calc(33.33% - 20px);
-  margin-bottom: 30px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
+    max-width: 50vw;
+    margin-bottom: 10px;
+    padding: 20px;
+    background-color: #96ffc0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
 
 .recipe-card h3 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin-bottom: 10px;
+}
+
+.recipe-card a {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #00baeb;
+}
+
+.video-card button {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #96ffc0;
 }
 
 .recipe-card img {
@@ -139,13 +167,14 @@ main {
 .video-card {
   max-width: 50vw;
   margin-bottom: 30px;
+  background-color: #00baeb;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
 .video-card h3 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin-bottom: 10px;
 }
 
