@@ -18,7 +18,6 @@ const autosearch = [
   "Pie",
   "Fried Rice",
   "Rice",
-  "Chicken Fried Steak",
   "Cookies",
   "Meatloaf",
   "Mac and Cheese",
@@ -35,8 +34,6 @@ const autosearch = [
   "Tacos",
   "Fajitas",
   "Salad",
-  "Tater-tots",
-  "Poutine",
   "Chicken Wings",
   "Cheesesteak",
   "Crockpot",
@@ -82,8 +79,6 @@ const autosearch = [
   "Black Beans",
   "Black-eyed Peas",
   "Squash",
-  "Squash, Butternut",
-  "Squash, Acorn",
   "Okra",
   "Collard Greens",
   "Red Potatoes",
@@ -105,21 +100,14 @@ const autosearch = [
   "Pescatarian",
   "Scallops",
   "Clams",
-  "Uni",
   "Veal",
   "Octopus",
   "Calamari",
   "Squid",
-  "Artificial Krab",
-  "Elk",
-  "Buffalo",
   //by diet restriction
-  "Gluten-Free",
-  "Gluten-Friendly",
   "Keto",
   "Low-Sodium",
   "Low Fat",
-  "Lactose-Free",
   //by 'other'
   "Chocolate",
   "White Chocolate",
@@ -131,13 +119,7 @@ const autosearch = [
   "Coffee",
   "Milk",
   "Queso",
-  "Cheese, Swiss",
-  "Cheese, Brie",
-  "Cheese, Cheddar",
-  "Cheese, American",
-  "Cheese, Gouda",
-  "Cheese, Pepperjack",
-  "Fondue",
+  "Cheese",
   //by cuisine
   "Indian",
   "Chinese",
@@ -151,12 +133,13 @@ const autosearch = [
   "French",
   "Spanish",
   "Eastern European",
-  "American",
   "South American",
-  "Swiss",
 ];
 //Alphabetize Array
+
 autosearch.sort();
+
+
 
 //Autocomplete
 function autocomplete(inp, autosearch) {
@@ -271,7 +254,7 @@ function autocomplete(inp, autosearch) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const spoonacularApiKey = "3508c499e2844bffb6e689336e37581e"; // Spoonacular API key
+  const spoonacularApiKey = "fbea9de7dc21482db3eff5c3ba63e63b"; // Spoonacular API key
   const youtubeApiKey = "AIzaSyCwtyxUDnn7btJ_P8uFBH9yCw1hd731Ya4"; // YouTube API key
 
   async function searchRecipes(query) {
