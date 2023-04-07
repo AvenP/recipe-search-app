@@ -293,9 +293,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
       description.innerText = summaryText;
 
-      const link = document.createElement("a");
-      link.href = recipe.sourceUrl;
+      const link = document.createElement("button");
+      // link.href = recipe.sourceUrl;
       link.innerText = "View recipe on Spoonacular";
+      link.addEventListener("click", displayRecipeModal);
+
+      function displayRecipeModal() {
+        document.querySelector("#recipe-modal").style.display = "block";
+        document.querySelector("#modal-title").innerText = recipe.title;
+        document.querySelector("#modal-recipe-instruction").innerText =
+          recipe.sourceURL;
+      }
 
       recipeCard.appendChild(title);
       recipeCard.appendChild(image);
@@ -344,6 +352,19 @@ document.addEventListener("DOMContentLoaded", () => {
           "iframe"
         ).src = `https://www.youtube.com/embed/${video.id.videoId}`;
       }
+      // const videoBookmark = document.querySelector("save-recipe");
+      // videoBookmark.addEventListener("click", videoSave);
+      // function videoSave() {
+      /* 
+        if(video.id.videoId is in localstorage){
+          remove video from videoSave Object 
+          videoBookmark.innerHTML = <i class="fa-solid fa-bookmark"></i>
+       }else{
+        store video.id.videoId & video.snippet.title 
+        videoBookmark.innerHTML = <i class="fa-light fa-bookmark"></i>
+      }
+      localStorage.setItem("videoBookmark", JSON.stringify(videoBookmark));
+    }*/
 
       videoCard.appendChild(title);
       videoCard.appendChild(thumbnail);
