@@ -104,6 +104,7 @@ main {
   flex-direction: row;
   flex-wrap: nowrap;
   overflow: auto;
+   margin-bottom: 30px;
 }
 
 /* Style for the results container */
