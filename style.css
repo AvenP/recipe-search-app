@@ -1,8 +1,9 @@
 * {
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   text-align: center;
 }
+
 body {
   background: rgb(239, 237, 237);
 }
@@ -48,8 +49,12 @@ input[type="submit"] {
   color: #ffffff;
 }
 #welcome-module {
-  background: rgb(150,255,192);
-  background: linear-gradient(153deg, rgba(150,255,192,1) 26%, rgba(0,186,235,1) 100%);
+  background: rgb(150, 255, 192);
+  background: linear-gradient(
+    153deg,
+    rgba(150, 255, 192, 1) 26%,
+    rgba(0, 186, 235, 1) 100%
+  );
   padding: 25px;
   border-radius: 10px;
   text-align: center;
@@ -90,7 +95,7 @@ main {
   flex-direction: row;
   flex-wrap: nowrap;
   overflow: auto;
-   margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 #results-container,
 #video-results-container {
@@ -104,26 +109,31 @@ main {
   margin: 0 auto;
   margin-top: 50px;
 }
+
 #recipe-modal {
   display: none;
-}
-.mt-2 {
-  height: 60vh;
+  width: 90vw;
+  height: 90vh;
 }
 .recipe-card {
-    max-width: 50vw;
-    margin-bottom: 10px;
-    padding: 20px;
-    background-color: #96ffc0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+
+  max-width: 50vw;
+  margin-bottom: 10px;
+  background-color: #96ffc0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
+
 .recipe-card h3 {
   font-size: 1.5rem;
   margin-bottom: 10px;
 }
-.recipe-card a {
-  font-size: 1.5rem;
+
+
+.recipe-card button {
+  font-size: 1.2rem;
+
   margin-bottom: 10px;
   font-weight: bold;
   color: #00baeb;
@@ -158,6 +168,12 @@ main {
   margin-bottom: 10px;
   border-radius: 5px;
 }
+
+
+footer {
+  margin-top: 20px;
+}
+
 @media only screen and (max-width: 768px) {
   #results-container {
     max-width: 100%;
