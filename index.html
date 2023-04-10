@@ -6,16 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recipe Search</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,500&display=swap');
-    </style>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <div
-      id="welcome-module">
-      <h1 class="text-orange-700 font-bold text-5xl">Welcome the to Recipe Search App!</h1>
-      <p class="text-gray-700 font-semibold leading-relaxed text-2xl">
+      id="welcome-module"
+      style="
+        background-color: #f2f2f2;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+      "
+    >
+      <h1>Welcome to Recipe Search App!</h1>
+      <p>
         To get started, enter a recipe name or ingredient in the search bar
         below.
       </p>
@@ -31,7 +35,7 @@
       </form>
       <button type="button" id="search-button">Search</button>
       <button type="button" id="videos-button">
-        YouTube search 
+        Click here to see videos about recipes
       </button>
     </div>
     <main>
@@ -110,7 +114,4 @@
       autocomplete(document.getElementById("myInput"), autosearch);
     </script>
   </body>
-  <footer>
-		<p>&copy; 2023 Group 4 Project From Aven Pearson, Matthew Boyd, Rojan Easo and Thi Nguyen </p>
-	</footer>
 </html>
