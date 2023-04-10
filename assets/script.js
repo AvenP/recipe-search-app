@@ -128,6 +128,7 @@ const autosearch = [
   "Eastern European",
   "South American",
 ];
+
 autosearch.sort();
 
 function autocomplete(inp, autosearch) {
@@ -137,34 +138,34 @@ function autocomplete(inp, autosearch) {
       b,
       i,
       val = this.value;
-  closeAllLists();
-  if (!val) {
-    return false;
-  }
-  currentFocus = -1;
-  a = document.createElement("DIV");
-  a.setAttribute("id", this.id + "autocomplete-list");
-  a.setAttribute("class", "autocomplete-items");
-  this.parentNode.appendChild(a);
-  for (i = 0; i < autosearch.length; i++) {
-    if (
-      autosearch[i].substr(0, val.length).toUpperCase() == val.toUpperCase()
-    ) {
-      b = document.createElement("DIV");
-      b.classList.add("autocomplete");
-      b.setAttribute("value", autosearch[i]);
-      b.innerHTML =
-        "<strong>" + autosearch[i].substr(0, val.length) + "</strong>";
-      b.innerHTML += autosearch[i].substr(val.length);
-      b.innerHTML += "<input type='hidden' value='" + autosearch[i] + "'>";
-      b.addEventListener("click", function (e) {
-        inp.value = this.getElementsByTagName("input")[0].value;
-        closeAllLists();
-      });
-        a.appendChild(b);
+    closeAllLists();
+    if (!val) {
+      return false;
     }
-  }
-});
+    currentFocus = -1;
+    a = document.createElement("DIV");
+    a.setAttribute("id", this.id + "autocomplete-list");
+    a.setAttribute("class", "autocomplete-items");
+    this.parentNode.appendChild(a);
+    for (i = 0; i < autosearch.length; i++) {
+      if (
+        autosearch[i].substr(0, val.length).toUpperCase() == val.toUpperCase()
+      ) {
+        b = document.createElement("DIV");
+        b.classList.add("autocomplete");
+        b.setAttribute("value", autosearch[i]);
+        b.innerHTML =
+          "<strong>" + autosearch[i].substr(0, val.length) + "</strong>";
+        b.innerHTML += autosearch[i].substr(val.length);
+        b.innerHTML += "<input type='hidden' value='" + autosearch[i] + "'>";
+        b.addEventListener("click", function (e) {
+          inp.value = this.getElementsByTagName("input")[0].value;
+          closeAllLists();
+        });
+        a.appendChild(b);
+      }
+    }
+  });
   inp.addEventListener("keydown", function (e) {
     var x = document.getElementById(this.id + "autocomplete-list");
     if (x) x = x.getElementsByTagName("div");
@@ -201,6 +202,7 @@ function autocomplete(inp, autosearch) {
       }
     }
   }
+
   $(document).on("click", "div.autocomplete", function (e) {
     if ($(e.target).is(".autocomplete")) {
       closeAllLists(e.target);
@@ -209,22 +211,9 @@ function autocomplete(inp, autosearch) {
   });
 }
 
-/*
-const recipeBookmarks;
-if (localStorage.getItem("recipeBookmarks")) {
-  recipeBookmarks = JSON.parse(localStorage.getItem("recipeBookmarks"))
-} else {
-  recipeBookmarks = {};
-}
-if (localStorage.getItem("youtubeBookmarks")) {
-  youtubeBookmarks = JSON.parse(localStorage.getItem("youtubeBookmarks"));
-} else {
-  youtubeBookmarks = {};
-}*/
-
 document.addEventListener("DOMContentLoaded", () => {
-  const spoonacularApiKey = "fbea9de7dc21482db3eff5c3ba63e63b"; // Spoonacular API key
-  const youtubeApiKey = "AIzaSyCwtyxUDnn7btJ_P8uFBH9yCw1hd731Ya4"; // YouTube API key
+  const spoonacularApiKey = "fbea9de7dc21482db3eff5c3ba63e63b";
+  const youtubeApiKey = "AIzaSyCwtyxUDnn7btJ_P8uFBH9yCw1hd731Ya4";
   const recipeBookmarks = {};
   const youtubeBookmarks = {};
 
@@ -232,6 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const url = `https://api.spoonacular.com/recipes/search?apiKey=${spoonacularApiKey}&query=${query}&number=6`;
     const response = await fetch(url);
     const data = await response.json();
+
     const recipes = data.results;
     const recipeIds = recipes.map((recipe) => recipe.id);
 
@@ -241,21 +231,20 @@ document.addEventListener("DOMContentLoaded", () => {
   async function displayRecipesWithDetails(recipes) {
     const resultsContainer = document.getElementById("results-container");
     resultsContainer.innerHTML = "";
+
     for (const recipe of recipes) {
       const recipeCard = document.createElement("div");
       recipeCard.classList.add("recipe-card");
+
       const title = document.createElement("h3");
       title.innerText = recipe.title;
+
       const image = document.createElement("img");
       image.src =
         "https://spoonacular.com/recipeImages/" + recipe.id + "-636x393.jpg";
       image.alt = recipe.title;
 
-
-     
-
       const link = document.createElement("button");
-     
       link.innerText = "View recipe on Spoonacular";
 
       const recipeBookmarkDetails = {
@@ -338,30 +327,35 @@ document.addEventListener("DOMContentLoaded", () => {
     dropdownRecipe.addEventListener("click", () => displayRecipeModal(recipe));
   }
 
-
+  // Function to search for YouTube videos
   async function searchVideos(query) {
     query = query + " food " + "recipe";
+
     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${query}&key=${youtubeApiKey}`;
     const response = await fetch(url);
     const data = await response.json();
     return data.items;
   }
 
+  // Function to display video results
   function displayVideos(videos) {
     const videoResultsContainer = document.getElementById(
       "video-results-container"
     );
     videoResultsContainer.innerHTML = "";
+
     videos.forEach((video) => {
       const videoCard = document.createElement("div");
       videoCard.classList.add("video-card");
+
       const title = document.createElement("h3");
       title.innerText = video.snippet.title;
+
       const thumbnail = document.createElement("img");
       thumbnail.src = video.snippet.thumbnails.medium.url;
+
       const videoLink = document.createElement("button");
       videoLink.innerText = "Watch Video";
-
 
       const vidBookmarkDetails = {
         title: video.snippet.title,
@@ -372,23 +366,12 @@ document.addEventListener("DOMContentLoaded", () => {
         displayVideoModal(vidBookmarkDetails)
       );
 
-
-      videoLink.addEventListener("click", displayVideoModal);
-      function displayVideoModal() {
-        document.querySelector("#recipe-modal").style.display = "block";
-        document.querySelector("#modal-title").innerText = video.snippet.title;
-        document.querySelector(
-          "iframe"
-        ).src = `https://www.youtube.com/embed/${video.id.videoId}`;
-      }
-
       videoCard.appendChild(title);
       videoCard.appendChild(thumbnail);
       videoCard.appendChild(videoLink);
       videoResultsContainer.appendChild(videoCard);
     });
   }
-
   function displayVideoModal(video) {
     document.querySelector("#recipe-modal").style.display = "block";
     document.querySelector("#modal-title").innerText = video.title;
@@ -441,15 +424,17 @@ document.addEventListener("DOMContentLoaded", () => {
     dropdownYoutube.addEventListener("click", () => displayVideoModal(video));
   }
 
-
+  // Event listener for videos button
   const videosButton = document.getElementById("videos-button");
   videosButton.addEventListener("click", async () => {
     const searchInput = document.getElementById("search-input");
+
     if (query) {
       const videos = await searchVideos(query);
       displayVideos(videos);
     }
   });
+  // Event listener for search button
   const searchButton = document.getElementById("search-button");
   searchButton.addEventListener("click", async () => {
     const searchInput = document.getElementById("myInput");
@@ -459,12 +444,5 @@ document.addEventListener("DOMContentLoaded", () => {
       displayRecipesWithDetails(recipes);
     }
   });
-
-  document
-    .querySelector("#close-modal")
-    .addEventListener(
-      "click",
-      () => (document.querySelector("#recipe-modal").style.display = "none")
-    );
-
 });
+
