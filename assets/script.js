@@ -212,7 +212,7 @@ function autocomplete(inp, autosearch) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const spoonacularApiKey = "fbea9de7dc21482db3eff5c3ba63e63b";
+  const spoonacularApiKey = "297ecfed503e4577a82c5ece920e94f8";
   const youtubeApiKey = "AIzaSyCwtyxUDnn7btJ_P8uFBH9yCw1hd731Ya4";
   const recipeBookmarks = {};
   const youtubeBookmarks = {};
