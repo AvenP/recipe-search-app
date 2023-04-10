@@ -4,6 +4,7 @@
   font-family: "Poppins", sans-serif;
   text-align: center;
 }
+
 body {
   background: rgb(239, 237, 237);
 }
@@ -127,14 +128,14 @@ main {
 
 #recipe-modal {
   display: none;
-}
-.mt-2 {
-  height: 60vh;
+  width: 90vw;
+  height: 90vh;
 }
 
 .recipe-card {
   max-width: 50vw;
   margin-bottom: 10px;
+  background-color: #96ffc0;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -145,8 +146,8 @@ main {
   margin-bottom: 10px;
 }
 
-.recipe-card a {
-  font-size: 1.5rem;
+.recipe-card button {
+  font-size: 1.2rem;
   margin-bottom: 10px;
   font-weight: bold;
   color: #00baeb;
@@ -185,6 +186,10 @@ main {
   height: auto;
   margin-bottom: 10px;
   border-radius: 5px;
+}
+
+footer {
+  margin-top: 20px;
 }
 
 /* Media query for smaller screens */

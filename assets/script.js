@@ -1,10 +1,3 @@
-// function decodeHtml(html) {
-//   var txt = document.createElement("textarea");
-//   txt.innerHTML = html;
-//   return txt.value;
-// }
-//Array for autocomplete
-//Please add to
 const autosearch = [
   //by type
   "Pizza",
@@ -23,7 +16,7 @@ const autosearch = [
   "Mac and Cheese",
   "Burgers",
   "Appetizers",
-  "Sandwhich",
+  "Sandwich",
   "Crab Cakes",
   "Deviled Eggs",
   "Stuffed Jalepeno",
@@ -139,8 +132,6 @@ const autosearch = [
 
 autosearch.sort();
 
-
-
 //Autocomplete
 function autocomplete(inp, autosearch) {
   /*the autocomplete function takes two arguments,
@@ -253,9 +244,24 @@ function autocomplete(inp, autosearch) {
   });
 }
 
+/*
+const recipeBookmarks;
+if (localStorage.getItem("recipeBookmarks")) {
+  recipeBookmarks = JSON.parse(localStorage.getItem("recipeBookmarks"))
+} else {
+  recipeBookmarks = {};
+}
+if (localStorage.getItem("youtubeBookmarks")) {
+  youtubeBookmarks = JSON.parse(localStorage.getItem("youtubeBookmarks"));
+} else {
+  youtubeBookmarks = {};
+}*/
+
 document.addEventListener("DOMContentLoaded", () => {
   const spoonacularApiKey = "fbea9de7dc21482db3eff5c3ba63e63b"; // Spoonacular API key
   const youtubeApiKey = "AIzaSyCwtyxUDnn7btJ_P8uFBH9yCw1hd731Ya4"; // YouTube API key
+  const recipeBookmarks = {};
+  const youtubeBookmarks = {};
 
   async function searchRecipes(query) {
     const url = `https://api.spoonacular.com/recipes/search?apiKey=${spoonacularApiKey}&query=${query}&number=6`;
@@ -264,7 +270,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const recipes = data.results;
     const recipeIds = recipes.map((recipe) => recipe.id);
-    console.log(recipeIds);
 
     return recipes;
   }
@@ -278,7 +283,6 @@ document.addEventListener("DOMContentLoaded", () => {
       recipeCard.classList.add("recipe-card");
 
       const title = document.createElement("h3");
-
       title.innerText = recipe.title;
 
       const image = document.createElement("img");
@@ -286,31 +290,102 @@ document.addEventListener("DOMContentLoaded", () => {
         "https://spoonacular.com/recipeImages/" + recipe.id + "-636x393.jpg";
       image.alt = recipe.title;
 
-      const summaryText = recipe.summary
-        ? recipe.summary.replace(/<[^>]*>/g, "")
-        : "";
-      const description = document.createElement("p");
+      // const summaryText = recipe.summary
+      //   ? recipe.summary.replace(/<[^>]*>/g, "")
+      //   : "";
+      // const description = document.createElement("p");
 
-      description.innerText = summaryText;
+      // description.innerText = summaryText;
 
       const link = document.createElement("button");
       // link.href = recipe.sourceUrl;
       link.innerText = "View recipe on Spoonacular";
-      link.addEventListener("click", displayRecipeModal);
 
-      function displayRecipeModal() {
-        document.querySelector("#recipe-modal").style.display = "block";
-        document.querySelector("#modal-title").innerText = recipe.title;
-        document.querySelector("#modal-recipe-instruction").innerText =
-          recipe.sourceURL;
-      }
+      const recipeBookmarkDetails = {
+        title: recipe.title,
+        url: recipe.sourceUrl,
+      };
+      link.addEventListener("click", () =>
+        displayRecipeModal(recipeBookmarkDetails)
+      );
 
       recipeCard.appendChild(title);
       recipeCard.appendChild(image);
-      recipeCard.appendChild(description);
+      // recipeCard.appendChild(description);
       recipeCard.appendChild(link);
       resultsContainer.appendChild(recipeCard);
     }
+  }
+
+  function displayRecipeModal(recipe) {
+    document.querySelector("#recipe-modal").style.display = "block";
+    document.querySelector("#iframe").style.display = "none";
+    document.querySelector("#modal-recipe-instructions").style.display =
+      "block";
+    document.querySelector("#modal-title").innerText = recipe.title;
+    //issue?
+    const recipeURL = `https://api.spoonacular.com/recipes/extract?apiKey=${spoonacularApiKey}&url=${recipe.url}&analyze=true`;
+    fetch(recipeURL)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (recipeData) {
+        if (!recipeData.instructions) {
+          document.querySelector("#modal-recipe-instructions").innerText =
+            "ERROR: Unable to extract recipe. Visit " +
+            recipeData.sourceUrl +
+            " for complete instructions.";
+        } else {
+          document.querySelector("#modal-recipe-instructions").innerHTML =
+            recipeData.instructions;
+        }
+      });
+    function removableRecipeSave() {
+      recipeSave(recipe);
+    }
+    const recipeBookmark = document.querySelector("#save-recipe");
+    recipeBookmark.addEventListener("click", removableRecipeSave);
+    const closeButton = document.querySelector("#close-modal");
+    closeButton.addEventListener("click", () => {
+      document.querySelector("#recipe-modal").style.display = "none";
+      recipeBookmark.removeEventListener("click", removableRecipeSave);
+    });
+  }
+  function recipeSave(recipe) {
+    if (recipeBookmarks[recipe.url]) {
+      // change bookmark button
+      // remove from obj
+      // localStorage.setItem("youtubeBookmarks", JSON.stringify(youtubeBookmarks));
+      // document.getElementById("${video.id}")
+      // delete item
+      return;
+    }
+    recipeBookmarks[recipe.url] = recipe.title;
+    localStorage.setItem("recipeBookmarks", JSON.stringify(recipeBookmarks));
+    const dropdownRecipe = document.createElement("p");
+    dropdownRecipe.classList.add(
+      "youtube-link",
+      "block",
+      "px-4",
+      "py-2",
+      "mt-2",
+      "text-sm",
+      "font-semibold",
+      "bg-transparent",
+      "rounded-lg",
+      "md:mt-0",
+      "hover:text-gray-900",
+      "focus:text-gray-900",
+      "hover:bg-gray-200",
+      "focus:bg-gray-200",
+      "focus:outline-none",
+      "focus:shadow-outline"
+    );
+    const recipeObj = JSON.parse(localStorage.getItem("recipeBookmarks"));
+    dropdownRecipe.innerText = recipeObj[recipe.url];
+    dropdownRecipe.id = recipe.url;
+    document.querySelector(".recipe-bookmarks").appendChild(dropdownRecipe);
+    dropdownRecipe.addEventListener("click", () => displayRecipeModal(recipe));
   }
 
   // Function to search for YouTube videos
@@ -343,28 +418,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const videoLink = document.createElement("button");
       videoLink.innerText = "Watch Video";
 
-      videoLink.addEventListener("click", displayVideoModal);
+      const vidBookmarkDetails = {
+        title: video.snippet.title,
+        id: video.id.videoId,
+      };
 
-      function displayVideoModal() {
-        document.querySelector("#recipe-modal").style.display = "block";
-        document.querySelector("#modal-title").innerText = video.snippet.title;
-        document.querySelector(
-          "iframe"
-        ).src = `https://www.youtube.com/embed/${video.id.videoId}`;
-      }
-      // const videoBookmark = document.querySelector("save-recipe");
-      // videoBookmark.addEventListener("click", videoSave);
-      // function videoSave() {
-      /* 
-        if(video.id.videoId is in localstorage){
-          remove video from videoSave Object 
-          videoBookmark.innerHTML = <i class="fa-solid fa-bookmark"></i>
-       }else{
-        store video.id.videoId & video.snippet.title 
-        videoBookmark.innerHTML = <i class="fa-light fa-bookmark"></i>
-      }
-      localStorage.setItem("videoBookmark", JSON.stringify(videoBookmark));
-    }*/
+      videoLink.addEventListener("click", () =>
+        displayVideoModal(vidBookmarkDetails)
+      );
 
       videoCard.appendChild(title);
       videoCard.appendChild(thumbnail);
@@ -372,6 +433,63 @@ document.addEventListener("DOMContentLoaded", () => {
       videoResultsContainer.appendChild(videoCard);
     });
   }
+  function displayVideoModal(video) {
+    document.querySelector("#recipe-modal").style.display = "block";
+    document.querySelector("#modal-title").innerText = video.title;
+    document.querySelector("#modal-recipe-instructions").style.display = "none";
+    document.querySelector("#iframe").style.display = "block";
+    document.querySelector(
+      "#iframe"
+    ).src = `https://www.youtube.com/embed/${video.id}`;
+    const videoBookmark = document.querySelector("#save-recipe");
+    function removableVideoSave() {
+      videoSave(video);
+    }
+    videoBookmark.addEventListener("click", removableVideoSave);
+    const closeButton = document.querySelector("#close-modal");
+    closeButton.addEventListener("click", () => {
+      document.querySelector("#recipe-modal").style.display = "none";
+      videoBookmark.removeEventListener("click", removableVideoSave);
+    });
+  }
+
+  function videoSave(video) {
+    if (youtubeBookmarks[video.id]) {
+      // change bookmark button
+      // remove from obj
+      // localStorage.setItem("youtubeBookmarks", JSON.stringify(youtubeBookmarks));
+      // document.getElementById("${video.id}")
+      // delete item
+      return;
+    }
+    youtubeBookmarks[video.id] = video.title;
+    localStorage.setItem("youtubeBookmarks", JSON.stringify(youtubeBookmarks));
+    const dropdownYoutube = document.createElement("p");
+    dropdownYoutube.classList.add(
+      "youtube-link",
+      "block",
+      "px-4",
+      "py-2",
+      "mt-2",
+      "text-sm",
+      "font-semibold",
+      "bg-transparent",
+      "rounded-lg",
+      "md:mt-0",
+      "hover:text-gray-900",
+      "focus:text-gray-900",
+      "hover:bg-gray-200",
+      "focus:bg-gray-200",
+      "focus:outline-none",
+      "focus:shadow-outline"
+    );
+    const youtubeObj = JSON.parse(localStorage.getItem("youtubeBookmarks"));
+    dropdownYoutube.innerText = youtubeObj[video.id];
+    dropdownYoutube.id = video.id;
+    document.querySelector(".youtube-bookmarks").appendChild(dropdownYoutube);
+    dropdownYoutube.addEventListener("click", () => displayVideoModal(video));
+  }
+
   // Event listener for videos button
   const videosButton = document.getElementById("videos-button");
   videosButton.addEventListener("click", async () => {
@@ -386,20 +504,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchButton = document.getElementById("search-button");
   searchButton.addEventListener("click", async () => {
     const searchInput = document.getElementById("myInput");
-    console.log(searchInput.value);
     query = searchInput.value;
     if (query) {
       const recipes = await searchRecipes(query);
       displayRecipesWithDetails(recipes);
     }
   });
-
-  document
-    .querySelector("#close-modal")
-    .addEventListener(
-      "click",
-      () => (document.querySelector("#recipe-modal").style.display = "none")
-    );
 });
 
 /* APIs
