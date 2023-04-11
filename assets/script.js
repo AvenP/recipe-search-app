@@ -107,7 +107,4 @@ videosButton.addEventListener('click', async () => {
       () => (document.querySelector("#recipe-modal").style.display = "none")
     );
 });
-
-/* APIs
-Rojan's spoonacular API key: 3508c499e2844bffb6e689336e37581e
-*/
+})
